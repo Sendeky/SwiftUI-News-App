@@ -10,10 +10,12 @@ import SwiftUI
 let imageURL = "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD"
 
 struct ArticleRowView: View {
+    
+    let link: String
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: imageURL)) { phase in
-                switch phase {
+            AsyncImage(url: URL(string: link)) { status in
+                switch status {
                 case .success(let image):
                     image
                         .resizable()
@@ -51,7 +53,7 @@ struct ArticleRowView: View {
                     Spacer()
                     
                     Button {
-                        presentShareSheet(url: imageURL)
+                        presentShareSheet(url: link)
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
@@ -66,6 +68,6 @@ struct ArticleRowView: View {
 
 struct ArticleRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleRowView()
+        ArticleRowView(link: "\(imageURL)")
     }
 }

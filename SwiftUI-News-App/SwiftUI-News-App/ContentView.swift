@@ -21,7 +21,10 @@ struct ContentView: View {
     var body: some View {
         NavigationView() {
             ScrollView {
-                ArticleRowView()
+//                ArticleRowView()
+//                ArticleRowView()
+//                ArticleRowView()
+//                ArticleRowView()
             }
             .navigationTitle("Title")
             .navigationBarItems(trailing: menu)
