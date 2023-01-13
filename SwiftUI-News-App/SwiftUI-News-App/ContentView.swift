@@ -8,42 +8,57 @@
 import SwiftUI
 
 
-enum Flavor: String, CaseIterable, Identifiable {
-    case chocolate, vanilla, strawberry
+enum NewsTypes: String, CaseIterable, Identifiable {
+    case Tech, Stocks
     var id: Self { self }
 }
 
 
 struct ContentView: View {
     
-    @State private var selectedFlavor: Flavor = .chocolate
+    let links = [
+        URL(string: "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD")!,
+        URL(string: "https://cdn.motor1.com/images/mgl/VPBlK/s3/tesla-model-s.jpg")!,
+        URL(string: "https://cdn.motor1.com/images/mgl/9m9p2g/s3/tesla-model-y-midnight-cherry-red.jpg")!,
+    ]
+    
+    @State private var selectedCategory: NewsTypes = .Tech
+    @State var presentingModal = false
     
     var body: some View {
         NavigationView() {
-            ScrollView {
-//                ArticleRowView()
-//                ArticleRowView()
-//                ArticleRowView()
-//                ArticleRowView()
-            }
-            .navigationTitle("Title")
-            .navigationBarItems(trailing: menu)
+            ArticleListView(links: links)
+                .navigationTitle("\(selectedCategory.rawValue)")
+                .navigationBarItems(trailing: settingsMenu)
+                .navigationBarItems(leading: menu)
+                .frame(width: UIScreen.main.bounds.width * 1.1)
         }
     }
     
     @ViewBuilder
     private var menu: some View {
         Menu {
-            Picker("Category", selection: $selectedFlavor) {
-                Text("Chocolate").tag(Flavor.chocolate)
-                Text("Vanilla").tag(Flavor.vanilla)
-                Text("Strawberry").tag(Flavor.strawberry)
+            Picker("Category", selection: $selectedCategory) {
+                Text("Tech").tag(NewsTypes.Tech)
+                Text("Stocks").tag(NewsTypes.Stocks)
             }
         } label: {
             Image(systemName: "text.justify")
                 .imageScale(.large)
                 .padding()
         }
+    }
+    
+    private var settingsMenu: some View {
+        
+    Button { self.presentingModal = true }
+    label: {
+        Image(systemName: "gear")
+    }
+    .sheet(isPresented: $presentingModal) { SettingsView(presentedAsModal: self.$presentingModal)}
+        //    label: {
+        //            Image(systemName: "gear")
+        //        }
     }
 }
 

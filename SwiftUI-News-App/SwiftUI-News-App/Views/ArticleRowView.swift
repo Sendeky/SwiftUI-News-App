@@ -7,14 +7,16 @@
 
 import SwiftUI
 
-let imageURL = "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD"
+let imageURL = URL(string:
+                    "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD"
+)
 
 struct ArticleRowView: View {
     
-    let link: String
+    let link: URL
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: link)) { status in
+            AsyncImage(url: link) { status in
                 switch status {
                 case .success(let image):
                     image
@@ -47,27 +49,38 @@ struct ArticleRowView: View {
                     .lineLimit(2)
                     .font(.subheadline)
                 HStack {
-                    Text("Caption")
+                    Text("Caption: Lorem ipsum dolor")
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Spacer()
                     
                     Button {
-                        presentShareSheet(url: link)
+                        presentShareSheet(url: "\(link)")
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
                     .foregroundColor(.orange)
                     .buttonStyle(.bordered)
+                    
+                    Button {
+                        //star func
+                    } label: {
+                        Image(systemName: "star")
+                    }
+                    .foregroundColor(.orange)
+                    .buttonStyle(.bordered)
                 }
+                .padding(.vertical)
             }
-            .frame(maxWidth: UIScreen.main.bounds.width / 1.15)
+            .frame(maxWidth: UIScreen.main.bounds.width / 1.25)
         }
+        .background(Gradient(colors: [.primary, .secondary]).opacity(0.5))
+        .cornerRadius(15)
     }
 }
 
 struct ArticleRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleRowView(link: "\(imageURL)")
+        ArticleRowView(link: imageURL!)
     }
 }
