@@ -6,23 +6,24 @@
 //
 
 import SwiftUI
-
+import SwiftyJSON
 
 enum NewsTypes: String, CaseIterable, Identifiable {
-    case Tech, Stocks
+    case Tesla, Stocks
     var id: Self { self }
 }
 
 
 struct ContentView: View {
     
-    let links = [
-        URL(string: "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD")!,
-        URL(string: "https://cdn.motor1.com/images/mgl/VPBlK/s3/tesla-model-s.jpg")!,
-        URL(string: "https://cdn.motor1.com/images/mgl/9m9p2g/s3/tesla-model-y-midnight-cherry-red.jpg")!,
-    ]
+//    let links = [
+//        URL(string: "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD")!,
+//        URL(string: "https://cdn.motor1.com/images/mgl/VPBlK/s3/tesla-model-s.jpg")!,
+//        URL(string: "https://cdn.motor1.com/images/mgl/9m9p2g/s3/tesla-model-y-midnight-cherry-red.jpg")!,
+//    ]
     
-    @State private var selectedCategory: NewsTypes = .Tech
+    @State var links: [URL] = [URL(string: "google.com")!]
+    @State private var selectedCategory: NewsTypes = .Tesla
     @State var presentingModal = false
     
     var body: some View {
@@ -33,13 +34,41 @@ struct ContentView: View {
                 .navigationBarItems(leading: menu)
                 .frame(width: UIScreen.main.bounds.width * 1.1)
         }
+        .onAppear {
+            Task {
+                let urlString = "https://newsapi.org/v2/everything?q=\(selectedCategory.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
+                
+                if let url = URL(string: urlString) {
+                    if let data = try? Data(contentsOf: url) {
+                        let result = JSON(data)
+                        
+                        let status = result["status"]
+                        print("Status: \(status)")
+                        
+                        for i in 0...5 {
+                            let a = result["articles"][i]
+                            print("articles: \(a)")
+                            let imageURL = a["urlToImage"]
+                            print("url:\(imageURL)")
+                            let author = a["author"]
+                            let title = a["title"]
+//                            var article = Article(author: "\(author)", title: "\(title)", urlToImage: "\(imageURL)")
+//                            articles.append(article)
+                            links.append(URL(string: "\(imageURL)")!)
+                        }
+//                        articles.remove(at: 0)
+                        links.remove(at: 0)
+                    }
+                }
+            }
+        }
     }
     
     @ViewBuilder
     private var menu: some View {
         Menu {
             Picker("Category", selection: $selectedCategory) {
-                Text("Tech").tag(NewsTypes.Tech)
+                Text("Tesla").tag(NewsTypes.Tesla)
                 Text("Stocks").tag(NewsTypes.Stocks)
             }
         } label: {
@@ -56,9 +85,6 @@ struct ContentView: View {
         Image(systemName: "gear")
     }
     .sheet(isPresented: $presentingModal) { SettingsView(presentedAsModal: self.$presentingModal)}
-        //    label: {
-        //            Image(systemName: "gear")
-        //        }
     }
 }
 
@@ -72,7 +98,6 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 }
-
 
 extension View {
     
