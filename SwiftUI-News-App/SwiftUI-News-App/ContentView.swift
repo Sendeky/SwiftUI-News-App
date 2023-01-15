@@ -22,13 +22,14 @@ struct ContentView: View {
 //        URL(string: "https://cdn.motor1.com/images/mgl/9m9p2g/s3/tesla-model-y-midnight-cherry-red.jpg")!,
 //    ]
     
-    @State var links: [URL] = [URL(string: "google.com")!]
+    @State var articles: [Article] = [Article(author: "", title: "", description: "", url: "", urlToImage: "")]
+    @State var links: [URL] //= [URL(string: "google.com")!]
     @State private var selectedCategory: NewsTypes = .Tesla
     @State var presentingModal = false
     
     var body: some View {
         NavigationView() {
-            ArticleListView(links: links)
+            ArticleListView(articles: articles)
                 .navigationTitle("\(selectedCategory.rawValue)")
                 .navigationBarItems(trailing: settingsMenu)
                 .navigationBarItems(leading: menu)
@@ -52,11 +53,45 @@ struct ContentView: View {
                             print("url:\(imageURL)")
                             let author = a["author"]
                             let title = a["title"]
-//                            var article = Article(author: "\(author)", title: "\(title)", urlToImage: "\(imageURL)")
-//                            articles.append(article)
+                            let description = a["description"]
+                            let url = a["url"]
+                            var article = Article(author: "\(author)", title: "\(title)", description: "\(description)", url: "\(url)",urlToImage: "\(imageURL)")
+                            articles.append(article)
                             links.append(URL(string: "\(imageURL)")!)
                         }
-//                        articles.remove(at: 0)
+                        articles.remove(at: 0)
+//                        links.remove(at: 0)
+                    }
+                }
+            }
+        }
+        .onChange(of: selectedCategory) { value in
+            Task {
+                articles.removeAll()
+                links.removeAll()
+                let urlString = "https://newsapi.org/v2/everything?q=\(value.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
+                
+                if let url = URL(string: urlString) {
+                    if let data = try? Data(contentsOf: url) {
+                        let result = JSON(data)
+                        
+                        let status = result["status"]
+                        print("Status: \(status)")
+                        
+                        for i in 0...5 {
+                            let a = result["articles"][i]
+                            print("articles: \(a)")
+                            let imageURL = a["urlToImage"]
+                            print("url:\(imageURL)")
+                            let author = a["author"]
+                            let title = a["title"]
+                            let description = a["description"]
+                            let url = a["url"]
+                            var article = Article(author: "\(author)", title: "\(title)", description: "\(description)", url: "\(url)",urlToImage: "\(imageURL)")
+                            articles.append(article)
+                            links.append(URL(string: "\(imageURL)")!)
+                        }
+                        articles.remove(at: 0)
                         links.remove(at: 0)
                     }
                 }
@@ -91,9 +126,9 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView()
+            ContentView(links: [URL(string: "google.com")!])
                 .preferredColorScheme(.light)
-            ContentView()
+            ContentView(links: [URL(string: "google.com")!])
                 .preferredColorScheme(.dark)
         }
     }

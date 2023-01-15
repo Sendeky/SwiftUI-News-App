@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftUI_News_AppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(links: [URL(string: "google.com")!])
         }
     }
 }

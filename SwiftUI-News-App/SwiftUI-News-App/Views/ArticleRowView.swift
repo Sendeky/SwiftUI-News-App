@@ -13,10 +13,12 @@ let imageURL = URL(string:
 
 struct ArticleRowView: View {
     
-    let link: URL
+//    let link: URL
+    let article: Article
+    
     var body: some View {
         VStack {
-            AsyncImage(url: link) { status in
+            AsyncImage(url: URL(string: "\(article.urlToImage)")) { status in
                 switch status {
                 case .success(let image):
                     image
@@ -42,10 +44,10 @@ struct ArticleRowView: View {
                 }
             }
             VStack(alignment: .leading, spacing: 10) {
-                Text("Headline")
+                Text("\(article.title)")
                     .font(.headline)
                     .lineLimit(2)
-                Text("Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiosmud ")
+                Text("\(article.description)")
                     .lineLimit(2)
                     .font(.subheadline)
                 HStack {
@@ -55,7 +57,7 @@ struct ArticleRowView: View {
                     Spacer()
                     
                     Button {
-                        presentShareSheet(url: "\(link)")
+                        presentShareSheet(url: "\(article.url)")
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
@@ -81,6 +83,7 @@ struct ArticleRowView: View {
 
 struct ArticleRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleRowView(link: imageURL!)
+//        ArticleRowView(link: imageURL!)
+        ArticleRowView(article: Article(author: "", title: "", description: "", url: "", urlToImage: "google.com"))
     }
 }
