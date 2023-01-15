@@ -7,17 +7,16 @@
 
 import SwiftUI
 
-let imageURL = URL(string:
-                    "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD"
-)
 
 struct ArticleRowView: View {
     
-//    let link: URL
+    @State private var state = false    //Used for star button state
+    
     let article: Article
     
     var body: some View {
         VStack {
+            //Asynchronously loads image from article (passed in by ArticleListView)
             AsyncImage(url: URL(string: "\(article.urlToImage)")) { status in
                 switch status {
                 case .success(let image):
@@ -43,19 +42,22 @@ struct ArticleRowView: View {
                     fatalError()
                 }
             }
+            //Vstack for content below image
             VStack(alignment: .leading, spacing: 10) {
-                Text("\(article.title)")
+                Text("\(article.title)")    //Title
                     .font(.headline)
                     .lineLimit(2)
-                Text("\(article.description)")
+                Text("\(article.description)")  //Description
                     .lineLimit(2)
                     .font(.subheadline)
+                //Hstack for caption and buttons
                 HStack {
                     Text("Caption: Lorem ipsum dolor")
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Spacer()
                     
+                    //Sharebutton
                     Button {
                         presentShareSheet(url: "\(article.url)")
                     } label: {
@@ -64,18 +66,30 @@ struct ArticleRowView: View {
                     .foregroundColor(.orange)
                     .buttonStyle(.bordered)
                     
+                    //Starbutton
                     Button {
-                        //star func
+                        if state != true {
+                            //TODO: star article
+                            state = true
+                        } else {
+                            //TODO: unstar article
+                            state = false
+                        }
                     } label: {
-                        Image(systemName: "star")
+                        //checks if star is already active =
+                        if state != true {
+                            Image(systemName: "star")
+                        } else {
+                            Image(systemName: "star.fill")
+                        }
                     }
                     .foregroundColor(.orange)
                     .buttonStyle(.bordered)
-                }
+                }//HStack with bottom buttons
                 .padding(.vertical)
-            }
-            .frame(maxWidth: UIScreen.main.bounds.width / 1.25)
-        }
+            }//Vstack with Title, Descripton, and bottom HStack
+            .frame(maxWidth: UIScreen.main.bounds.width / 1.20)
+        }//ArticleRowView body view
         .background(Gradient(colors: [.primary, .secondary]).opacity(0.5))
         .cornerRadius(15)
     }
@@ -83,7 +97,7 @@ struct ArticleRowView: View {
 
 struct ArticleRowView_Previews: PreviewProvider {
     static var previews: some View {
-//        ArticleRowView(link: imageURL!)
+        //        ArticleRowView(link: imageURL!)
         ArticleRowView(article: Article(author: "", title: "", description: "", url: "", urlToImage: "google.com"))
     }
 }

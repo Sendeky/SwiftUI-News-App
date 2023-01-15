@@ -37,7 +37,8 @@ struct ContentView: View {
         }
         .onAppear {
             Task {
-                let urlString = "https://newsapi.org/v2/everything?q=\(selectedCategory.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
+//                let urlString = "https://newsapi.org/v2/everything?q=\(value.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
+                let urlString = "https://saurav.tech/NewsAPI/top-headlines/category/health/in.json" //TEMP URL FOR TESTING
                 
                 if let url = URL(string: urlString) {
                     if let data = try? Data(contentsOf: url) {
@@ -65,11 +66,13 @@ struct ContentView: View {
                 }
             }
         }
+        
         .onChange(of: selectedCategory) { value in
             Task {
                 articles.removeAll()
                 links.removeAll()
-                let urlString = "https://newsapi.org/v2/everything?q=\(value.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
+                let urlString = "https://saurav.tech/NewsAPI/top-headlines/category/health/in.json" //TEMP URL FOR TESTING
+//                let urlString = "https://newsapi.org/v2/everything?q=\(value.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
                 
                 if let url = URL(string: urlString) {
                     if let data = try? Data(contentsOf: url) {
