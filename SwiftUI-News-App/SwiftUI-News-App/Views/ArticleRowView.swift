@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import SafariServices
 
 struct ArticleRowView: View {
     
+    @State private var lineLimit: Int = 3      //Used to expand description if needed
+    @State private var showSafari: Bool = false     //Used for showing SafariWebview
     @State private var state = false    //Used for star button state
     let article: Article
     
@@ -45,9 +48,11 @@ struct ArticleRowView: View {
                 Text("\(article.title)")    //Title
                     .font(.headline)
                     .lineLimit(2)
+                    .clipped()
                 Text("\(article.description)")  //Description
-                    .lineLimit(2)
+                    .lineLimit(lineLimit)
                     .font(.subheadline)
+                    .clipped()
                 //Hstack for caption and buttons
                 HStack {
                     Text("Caption: Lorem ipsum dolor")
@@ -83,18 +88,32 @@ struct ArticleRowView: View {
                     .foregroundColor(.orange)
                     .buttonStyle(.bordered)
                 }//HStack with bottom buttons
-                .padding(.vertical)
+                .padding(.bottom)
             }//Vstack with Title, Descripton, and bottom HStack
             .frame(maxWidth: UIScreen.main.bounds.width / 1.20)
+            .animation(.easeInOut(duration: 0.5), value: lineLimit) //Description expansion animation
+            .onTapGesture {
+                if lineLimit != 6 { lineLimit = 6 }
+                else { lineLimit = 2 }
+            }
         }//ArticleRowView body view
         .background(LinearGradient(colors: [.primary, .secondary], startPoint: .top, endPoint: .bottom).opacity(0.5))
         .cornerRadius(15)
+        .onTapGesture {
+            print("tapped")
+            showSafari.toggle()
+        }
+        .fullScreenCover(isPresented: $showSafari, content: {
+            SFSafariViewWrapper(url: URL(string: article.url)!)
+        })
     }
 }
 
 struct ArticleRowView_Previews: PreviewProvider {
     static var previews: some View {
         //        ArticleRowView(link: imageURL!)
-        ArticleRowView(article: Article(author: "", title: "", description: "", url: "", urlToImage: "google.com"))
+        ArticleRowView(article: Article(author: "An interesting author", title: "An interesting Title", description: "Description: Lorem ipsum dolor lorem ipsum dolor, this is very interesting, I just need to fill this description with a bunch of text, I should actually just copy and  paste all of thi so I don't have to write it all out", url: "google.com", urlToImage: "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD"))
     }
 }
+
+

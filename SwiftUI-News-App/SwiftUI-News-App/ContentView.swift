@@ -136,7 +136,6 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 extension View {
-    
     func presentShareSheet(url: String) {
         let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         (UIApplication.shared.connectedScenes.first as? UIWindowScene)?
@@ -144,5 +143,4 @@ extension View {
             .rootViewController?
             .present(activityVC, animated: true)
     }
-    
 }
