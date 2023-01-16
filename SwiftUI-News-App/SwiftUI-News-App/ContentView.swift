@@ -13,7 +13,6 @@ enum NewsTypes: String, CaseIterable, Identifiable {
     var id: Self { self }
 }
 
-
 struct ContentView: View {
     
     
@@ -32,146 +31,41 @@ struct ContentView: View {
     var body: some View {
         
         if UIDevice.current.userInterfaceIdiom == .pad { //iPad layout
-            VStack {
-                PadArticleRowView(article: Article(author: "Author", title: "Title", description: "Descritpion", url: "url.com", urlToImage: tempLink))
-            }
-            /*
-            ArticleListView(articles: articles)
-                .onAppear {
-                    Task {
-                        //                let urlString = "https://newsapi.org/v2/everything?q=\(value.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
-                        let urlString = "https://saurav.tech/NewsAPI/top-headlines/category/health/in.json" //TEMP URL FOR TESTING
-                        
-                        if let url = URL(string: urlString) {
-                            if let data = try? Data(contentsOf: url) {
-                                let result = JSON(data)
-                                
-                                let status = result["status"]
-                                print("Status: \(status)")
-                                
-                                for i in 0...5 {
-                                    let a = result["articles"][i]
-                                    print("articles: \(a)")
-                                    let imageURL = a["urlToImage"]
-                                    print("url:\(imageURL)")
-                                    let author = a["author"]
-                                    let title = a["title"]
-                                    let description = a["description"]
-                                    let url = a["url"]
-                                    var article = Article(author: "\(author)", title: "\(title)", description: "\(description)", url: "\(url)",urlToImage: "\(imageURL)")
-                                    articles.append(article)
-                                    links.append(URL(string: "\(imageURL)")!)
-                                }
-                                articles.remove(at: 0)
-                                //                        links.remove(at: 0)
-                            }
-                        }
-                    }
-                }
-                .onChange(of: selectedCategory) { value in
-                    Task {
-                        articles.removeAll()
-                        links.removeAll()
-                        let urlString = "https://saurav.tech/NewsAPI/top-headlines/category/health/in.json" //TEMP URL FOR TESTING
-                        //                let urlString = "https://newsapi.org/v2/everything?q=\(value.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
-                        
-                        if let url = URL(string: urlString) {
-                            if let data = try? Data(contentsOf: url) {
-                                let result = JSON(data)
-                                
-                                let status = result["status"]
-                                print("Status: \(status)")
-                                
-                                for i in 0...5 {
-                                    let a = result["articles"][i]
-                                    print("articles: \(a)")
-                                    let imageURL = a["urlToImage"]
-                                    print("url:\(imageURL)")
-                                    let author = a["author"]
-                                    let title = a["title"]
-                                    let description = a["description"]
-                                    let url = a["url"]
-                                    var article = Article(author: "\(author)", title: "\(title)", description: "\(description)", url: "\(url)",urlToImage: "\(imageURL)")
-                                    articles.append(article)
-                                    links.append(URL(string: "\(imageURL)")!)
-                                }
-                                articles.remove(at: 0)
-                                links.remove(at: 0)
-                            }
-                        }
-                    }
-                }
-             */
-        } else if UIDevice.current.userInterfaceIdiom == .phone { //iPhone layout
-            NavigationView() {
-                ArticleListView(articles: articles)
-                    .navigationTitle("\(selectedCategory.rawValue)")
-                //                .navigationBarItems(trailing: settingsMenu)
-                    .navigationBarItems(leading: menu)
-                    .frame(width: UIScreen.main.bounds.width * 1.1)
+            HStack {
+                PadArticleListView(articles: articles)
+                    .frame(width: UIScreen.main.bounds.width * 0.8)
+                Spacer()
             }
             .onAppear {
                 Task {
-                    //                let urlString = "https://newsapi.org/v2/everything?q=\(value.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
-                    let urlString = "https://saurav.tech/NewsAPI/top-headlines/category/health/in.json" //TEMP URL FOR TESTING
-                    
-                    if let url = URL(string: urlString) {
-                        if let data = try? Data(contentsOf: url) {
-                            let result = JSON(data)
-                            
-                            let status = result["status"]
-                            print("Status: \(status)")
-                            
-                            for i in 0...5 {
-                                let a = result["articles"][i]
-                                print("articles: \(a)")
-                                let imageURL = a["urlToImage"]
-                                print("url:\(imageURL)")
-                                let author = a["author"]
-                                let title = a["title"]
-                                let description = a["description"]
-                                let url = a["url"]
-                                var article = Article(author: "\(author)", title: "\(title)", description: "\(description)", url: "\(url)",urlToImage: "\(imageURL)")
-                                articles.append(article)
-                                links.append(URL(string: "\(imageURL)")!)
-                            }
-                            articles.remove(at: 0)
-                            //                        links.remove(at: 0)
-                        }
-                    }
+                    NewsAPICall(category: selectedCategory.rawValue)
                 }
             }
             .onChange(of: selectedCategory) { value in
                 Task {
                     articles.removeAll()
                     links.removeAll()
-                    let urlString = "https://saurav.tech/NewsAPI/top-headlines/category/health/in.json" //TEMP URL FOR TESTING
-                    //                let urlString = "https://newsapi.org/v2/everything?q=\(value.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
-                    
-                    if let url = URL(string: urlString) {
-                        if let data = try? Data(contentsOf: url) {
-                            let result = JSON(data)
-                            
-                            let status = result["status"]
-                            print("Status: \(status)")
-                            
-                            for i in 0...5 {
-                                let a = result["articles"][i]
-                                print("articles: \(a)")
-                                let imageURL = a["urlToImage"]
-                                print("url:\(imageURL)")
-                                let author = a["author"]
-                                let title = a["title"]
-                                let description = a["description"]
-                                let url = a["url"]
-                                var article = Article(author: "\(author)", title: "\(title)", description: "\(description)", url: "\(url)",urlToImage: "\(imageURL)")
-                                articles.append(article)
-                                links.append(URL(string: "\(imageURL)")!)
-                            }
-                            articles.remove(at: 0)
-                            links.remove(at: 0)
-                        }
-                    }
+                    NewsAPICall(category: value.rawValue)
+                }
+            }
+        } else if UIDevice.current.userInterfaceIdiom == .phone { //iPhone layout
+            NavigationView() {
+                ArticleListView(articles: articles)
+                    .navigationTitle("\(selectedCategory.rawValue)")
+                    .navigationBarItems(trailing: settingsMenu)
+                    .navigationBarItems(leading: menu)
+                    .frame(width: UIScreen.main.bounds.width * 1.1)
+            }
+            .onAppear {
+                Task {
+                    NewsAPICall(category: selectedCategory.rawValue)
+                }
+            }
+            .onChange(of: selectedCategory) { value in
+                Task {
+                    articles.removeAll()
+                    links.removeAll()
+                    NewsAPICall(category: value.rawValue)
                 }
             }
         }
@@ -191,14 +85,43 @@ struct ContentView: View {
         }
     }
     
-    //    private var settingsMenu: some View {
-    //
-    //    Button { self.presentingModal = true }
-    //    label: {
-    //        Image(systemName: "gear")
-    //    }
-    //    .sheet(isPresented: $presentingModal) { SettingsView(presentedAsModal: self.$presentingModal)}
-    //    }
+    private var settingsMenu: some View {
+        Button { self.presentingModal = true }
+    label: {
+        Image(systemName: "gear")
+    }
+    .sheet(isPresented: $presentingModal) { SettingsView(presentedAsModal: self.$presentingModal)}
+    }
+    
+    private func NewsAPICall(category: String) {
+        //                let urlString = "https://newsapi.org/v2/everything?q=\(value.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
+        let urlString = "https://saurav.tech/NewsAPI/top-headlines/category/health/in.json" //TEMP URL FOR TESTING
+        
+        if let url = URL(string: urlString) {
+            if let data = try? Data(contentsOf: url) {
+                let result = JSON(data)
+                
+                let status = result["status"]
+                print("Status: \(status)")
+                
+                for i in 0...5 {
+                    let a = result["articles"][i]
+                    print("articles: \(a)")
+                    let imageURL = a["urlToImage"]
+                    print("url:\(imageURL)")
+                    let author = a["author"]
+                    let title = a["title"]
+                    let description = a["description"]
+                    let url = a["url"]
+                    var article = Article(author: "\(author)", title: "\(title)", description: "\(description)", url: "\(url)",urlToImage: "\(imageURL)")
+                    articles.append(article)
+                    links.append(URL(string: "\(imageURL)")!)
+                }
+                articles.remove(at: 0)
+                //                        links.remove(at: 0)
+            }
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {

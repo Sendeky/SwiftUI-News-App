@@ -87,7 +87,7 @@ struct ArticleRowView: View {
             }//Vstack with Title, Descripton, and bottom HStack
             .frame(maxWidth: UIScreen.main.bounds.width / 1.20)
         }//ArticleRowView body view
-        .background(Gradient(colors: [.primary, .secondary]).opacity(0.5))
+        .background(LinearGradient(colors: [.primary, .secondary], startPoint: .top, endPoint: .bottom).opacity(0.5))
         .cornerRadius(15)
     }
 }

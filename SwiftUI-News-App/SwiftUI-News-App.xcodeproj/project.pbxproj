@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C05D9AC42974F13F009DC39A /* PadArticleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05D9AC32974F13F009DC39A /* PadArticleListView.swift */; };
 		C08A5A462970BEEB00522927 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A5A452970BEEB00522927 /* SettingsView.swift */; };
 		C09D886D296E62DA005DF9B7 /* ArticleRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09D886C296E62DA005DF9B7 /* ArticleRowView.swift */; };
 		C09E3BDE296F193F0001ECFF /* ArticleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E3BDD296F193F0001ECFF /* ArticleListView.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C05D9AC32974F13F009DC39A /* PadArticleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PadArticleListView.swift; sourceTree = "<group>"; };
 		C08A5A452970BEEB00522927 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C09D886C296E62DA005DF9B7 /* ArticleRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRowView.swift; sourceTree = "<group>"; };
 		C09E3BDD296F193F0001ECFF /* ArticleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListView.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				C0FDAA702974CE4D00E2B3F6 /* PadArticleRowView.swift */,
+				C05D9AC32974F13F009DC39A /* PadArticleListView.swift */,
 			);
 			path = "iPad Views";
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 			files = (
 				C0FDAA6E297376B000E2B3F6 /* Article.swift in Sources */,
 				C08A5A462970BEEB00522927 /* SettingsView.swift in Sources */,
+				C05D9AC42974F13F009DC39A /* PadArticleListView.swift in Sources */,
 				C0BB8341296DD2DB00C9A1F3 /* ContentView.swift in Sources */,
 				C09D886D296E62DA005DF9B7 /* ArticleRowView.swift in Sources */,
 				C0BB833F296DD2DB00C9A1F3 /* SwiftUI_News_AppApp.swift in Sources */,
