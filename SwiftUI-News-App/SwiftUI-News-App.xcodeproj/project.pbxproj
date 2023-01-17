@@ -12,6 +12,7 @@
 		C08A5A462970BEEB00522927 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A5A452970BEEB00522927 /* SettingsView.swift */; };
 		C09D886D296E62DA005DF9B7 /* ArticleRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09D886C296E62DA005DF9B7 /* ArticleRowView.swift */; };
 		C09E3BDE296F193F0001ECFF /* ArticleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E3BDD296F193F0001ECFF /* ArticleListView.swift */; };
+		C09F1E62297746BA006A77E3 /* StarredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09F1E61297746BA006A77E3 /* StarredView.swift */; };
 		C0BB833F296DD2DB00C9A1F3 /* SwiftUI_News_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BB833E296DD2DB00C9A1F3 /* SwiftUI_News_AppApp.swift */; };
 		C0BB8341296DD2DB00C9A1F3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BB8340296DD2DB00C9A1F3 /* ContentView.swift */; };
 		C0BB8343296DD2DD00C9A1F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0BB8342296DD2DD00C9A1F3 /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 		C08A5A452970BEEB00522927 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C09D886C296E62DA005DF9B7 /* ArticleRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRowView.swift; sourceTree = "<group>"; };
 		C09E3BDD296F193F0001ECFF /* ArticleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListView.swift; sourceTree = "<group>"; };
+		C09F1E61297746BA006A77E3 /* StarredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarredView.swift; sourceTree = "<group>"; };
 		C0BB833B296DD2DB00C9A1F3 /* SwiftUI-News-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftUI-News-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0BB833E296DD2DB00C9A1F3 /* SwiftUI_News_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_News_AppApp.swift; sourceTree = "<group>"; };
 		C0BB8340296DD2DB00C9A1F3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				C09D886C296E62DA005DF9B7 /* ArticleRowView.swift */,
 				C09E3BDD296F193F0001ECFF /* ArticleListView.swift */,
 				C08A5A452970BEEB00522927 /* SettingsView.swift */,
+				C09F1E61297746BA006A77E3 /* StarredView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 				C09E3BDE296F193F0001ECFF /* ArticleListView.swift in Sources */,
 				C0FDAA712974CE4D00E2B3F6 /* PadArticleRowView.swift in Sources */,
 				C0FDAA6B2973351400E2B3F6 /* Constants.swift in Sources */,
+				C09F1E62297746BA006A77E3 /* StarredView.swift in Sources */,
 				C05D9AC7297530FD009DC39A /* SafariWebview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,7 +351,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftUI-News-App/Preview Content\"";
-				DEVELOPMENT_TEAM = 983DASAX74;
+				DEVELOPMENT_TEAM = PT5J4Z6J5K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -361,7 +365,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "RS.SwiftUI-News-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "ES.SwiftUI-News-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -377,7 +381,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftUI-News-App/Preview Content\"";
-				DEVELOPMENT_TEAM = 983DASAX74;
+				DEVELOPMENT_TEAM = PT5J4Z6J5K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -391,7 +395,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "RS.SwiftUI-News-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "ES.SwiftUI-News-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

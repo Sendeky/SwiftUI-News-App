@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftyJSON
 
 enum NewsTypes: String, CaseIterable, Identifiable {
-    case Tesla, Stocks
+    case technology, business
     var id: Self { self }
 }
 
@@ -18,24 +18,33 @@ struct ContentView: View {
     
     let tempLink = "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD"
     //    let links = [
-    //        URL(string: "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD")!,
-    //        URL(string: "https://cdn.motor1.com/images/mgl/VPBlK/s3/tesla-model-s.jpg")!,
-    //        URL(string: "https://cdn.motor1.com/images/mgl/9m9p2g/s3/tesla-model-y-midnight-cherry-red.jpg")!,
-    //    ]
+    //        URL(string: "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD")!]
     
     @State var articles: [Article] = [Article(author: "", title: "", description: "", url: "", urlToImage: "")]
     @State var links: [URL] //= [URL(string: "google.com")!]
-    @State private var selectedCategory: NewsTypes = .Tesla
-    @State var presentingModal = false
+    @State private var selectedCategory: NewsTypes = .technology
+    @State var presentingSettings = false
+    @State var presentingStarred = false
     
     var body: some View {
-        
         if UIDevice.current.userInterfaceIdiom == .pad { //iPad layout
-            HStack {
+            NavigationView {
+                List {
+                    NavigationLink {
+                        PadArticleListView(articles: articles)
+                    } label: {
+                        Label("\(selectedCategory.rawValue)", systemImage: "bolt.car.fill")
+                    }
+                    NavigationLink {
+                        PadArticleListView(articles: articles)
+                    } label: {
+                        Label("\(NewsTypes.business.rawValue)", systemImage: "bolt.car.fill")
+                    }
+                }
+                .navigationTitle("Categories")
                 PadArticleListView(articles: articles)
-                    .frame(width: UIScreen.main.bounds.width * 0.8)
-                Spacer()
             }
+            .listStyle(SidebarListStyle())
             .onAppear {
                 Task {
                     NewsAPICall(category: selectedCategory.rawValue)
@@ -45,14 +54,15 @@ struct ContentView: View {
                 Task {
                     articles.removeAll()
                     links.removeAll()
-                    NewsAPICall(category: value.rawValue)
+                    NewsAPICall(category: selectedCategory.rawValue)
                 }
             }
         } else if UIDevice.current.userInterfaceIdiom == .phone { //iPhone layout
             NavigationView() {
                 ArticleListView(articles: articles)
                     .navigationTitle("\(selectedCategory.rawValue)")
-                    .navigationBarItems(trailing: settingsMenu)
+                    .navigationBarItems(trailing: settingsButton)
+                    .navigationBarItems(trailing: starredButton)
                     .navigationBarItems(leading: menu)
                     .frame(width: UIScreen.main.bounds.width * 1.1)
             }
@@ -75,8 +85,8 @@ struct ContentView: View {
     private var menu: some View {
         Menu {
             Picker("Category", selection: $selectedCategory) {
-                Text("Tesla").tag(NewsTypes.Tesla)
-                Text("Stocks").tag(NewsTypes.Stocks)
+                Text("Technology").tag(NewsTypes.technology)
+                Text("Stocks").tag(NewsTypes.business)
             }
         } label: {
             Image(systemName: "text.justify")
@@ -85,27 +95,37 @@ struct ContentView: View {
         }
     }
     
-    private var settingsMenu: some View {
-        Button { self.presentingModal = true }
+    private var settingsButton: some View {
+        Button { self.presentingSettings = true }
     label: {
         Image(systemName: "gear")
     }
-    .sheet(isPresented: $presentingModal) { SettingsView(presentedAsModal: self.$presentingModal)}
+    .sheet(isPresented: $presentingSettings) { SettingsView(settingsPresentedModal: self.$presentingSettings)}
     }
+    
+    private var starredButton: some View {
+        Button { self.presentingStarred = true }
+    label: {
+        Image(systemName: "star")
+    }
+    .sheet(isPresented: $presentingStarred) { StarredView(starredPresentingModal: self.$presentingStarred)}
+    }
+    
     
     private func NewsAPICall(category: String) {
         //                let urlString = "https://newsapi.org/v2/everything?q=\(value.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
-        let urlString = "https://saurav.tech/NewsAPI/top-headlines/category/health/in.json" //TEMP URL FOR TESTING
+//        let urlString = "https://saurav.tech/NewsAPI/top-headlines/category/\(category)/in.json" //TEMP URL FOR TESTING
+        let urlString = "https://news-374821.uc.r.appspot.com/news?q=\(category)&token=\(Constants.apiKey)"
         
         if let url = URL(string: urlString) {
             if let data = try? Data(contentsOf: url) {
                 let result = JSON(data)
                 
-                let status = result["status"]
-                print("Status: \(status)")
+//                let status = result["status"]
+//                print("Status: \(status)")
                 
-                for i in 0...5 {
-                    let a = result["articles"][i]
+                for i in 0...9 {
+                    let a = result[i]
                     print("articles: \(a)")
                     let imageURL = a["urlToImage"]
                     print("url:\(imageURL)")

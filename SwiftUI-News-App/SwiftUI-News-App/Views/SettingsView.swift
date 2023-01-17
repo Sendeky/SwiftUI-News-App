@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @Binding var presentedAsModal: Bool
+    @Binding var settingsPresentedModal: Bool
     var body: some View {
         List {
             Text("text")
@@ -19,6 +19,6 @@ struct SettingsView: View {
 
 //struct SettingsView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        SettingsView(presentedAsModal: self.$presentingModal)
+//        SettingsView(settingsPresentedModal: self.$presentingModal)
 //    }
 //}
