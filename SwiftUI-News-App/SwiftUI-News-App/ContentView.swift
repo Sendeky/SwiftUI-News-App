@@ -25,6 +25,7 @@ struct ContentView: View {
     @State private var selectedCategory: NewsTypes = .technology
     @State var presentingSettings = false
     @State var presentingStarred = false
+    @State var starredArticles: [Article]
     
     var body: some View {
         if UIDevice.current.userInterfaceIdiom == .pad { //iPad layout
@@ -70,6 +71,7 @@ struct ContentView: View {
                 Task {
                     NewsAPICall(category: selectedCategory.rawValue)
                 }
+                print("starredArticles: \(starredArticles)")
             }
             .onChange(of: selectedCategory) { value in
                 Task {
@@ -104,11 +106,13 @@ struct ContentView: View {
     }
     
     private var starredButton: some View {
-        Button { self.presentingStarred = true }
+        Button { self.presentingStarred = true
+            print(starredArticles)
+        }
     label: {
         Image(systemName: "star")
     }
-    .sheet(isPresented: $presentingStarred) { StarredView(starredPresentingModal: self.$presentingStarred)}
+    .sheet(isPresented: $presentingStarred) { StarredView(starredPresentingModal: self.$presentingStarred, articles: starredArticles)}
     }
     
     
@@ -144,16 +148,16 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ContentView(links: [URL(string: "google.com")!])
-                .preferredColorScheme(.light)
-            ContentView(links: [URL(string: "google.com")!])
-                .preferredColorScheme(.dark)
-        }
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            ContentView(links: [URL(string: "google.com")!])
+//                .preferredColorScheme(.light)
+//            ContentView(links: [URL(string: "google.com")!])
+//                .preferredColorScheme(.dark)
+//        }
+//    }
+//}
 
 extension View {
     func presentShareSheet(url: String) {

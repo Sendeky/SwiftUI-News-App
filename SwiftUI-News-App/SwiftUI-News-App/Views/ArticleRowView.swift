@@ -10,10 +10,12 @@ import SafariServices
 
 struct ArticleRowView: View {
     
+
+    @State private var starredArticles: [Article] = [Article(author: "author", title: "title", description: "desc", url: "url", urlToImage: "test.com")]
     @State private var lineLimit: Int = 3      //Used to expand description if needed
     @State private var showSafari: Bool = false     //Used for showing SafariWebview
     @State private var state = false    //Used for star button state
-    let article: Article
+    var article: Article
     
     var body: some View {
         VStack {
@@ -72,6 +74,9 @@ struct ArticleRowView: View {
                     Button {
                         if state != true {
                             //TODO: star article
+                            starredArticles.append(article)
+                            print("starredArticles: \(starredArticles)")
+                            ContentView(links: [URL(string: "google.com")!], starredArticles: starredArticles)
                             state = true
                         } else {
                             //TODO: unstar article
