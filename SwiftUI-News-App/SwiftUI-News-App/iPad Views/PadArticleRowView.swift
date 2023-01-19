@@ -94,9 +94,9 @@ struct PadArticleRowView: View {
     }
 }
 
-struct PadArticleRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        //        ArticleRowView(link: imageURL!)
-        ArticleRowView(article: Article(author: "", title: "", description: "", url: "", urlToImage: "google.com"))
-    }
-}
+//struct PadArticleRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        //        ArticleRowView(link: imageURL!)
+//        ArticleRowView(article: Article(author: "", title: "", description: "", url: "", urlToImage: "google.com"))
+//    }
+//}

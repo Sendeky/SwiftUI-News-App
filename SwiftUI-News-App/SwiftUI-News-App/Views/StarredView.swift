@@ -12,7 +12,7 @@ struct StarredView: View {
     @State var previewPresent: Bool = true
     @Binding var starredPresentingModal: Bool
     let a: [Article] = [Article(author: "author", title: "title", description: "description", url: "url.com", urlToImage: "google.com")]
-    @State var articles: [Article]
+    @Binding var articles: [Article]
     
     var body: some View {
 //        ArticleRowView(article: articles)
@@ -23,8 +23,8 @@ struct StarredView: View {
         }
 //        ArticleListView(articles: articles)
         Button {
-            ArticleListView(articles: articles)
-            print("articles: \(articles)")
+            ArticleListView(articles: $articles)
+            print("articles: \($articles)")
         } label: {
             Text("button")
         }

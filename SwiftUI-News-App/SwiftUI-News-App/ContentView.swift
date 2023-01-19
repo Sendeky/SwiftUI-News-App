@@ -60,7 +60,7 @@ struct ContentView: View {
             }
         } else if UIDevice.current.userInterfaceIdiom == .phone { //iPhone layout
             NavigationView() {
-                ArticleListView(articles: articles)
+                ArticleListView(articles: $articles)
                     .navigationTitle("\(selectedCategory.rawValue)")
                     .navigationBarItems(trailing: settingsButton)
                     .navigationBarItems(trailing: starredButton)

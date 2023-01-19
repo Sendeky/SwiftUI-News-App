@@ -27,6 +27,6 @@ extension ContentView {
     label: {
         Image(systemName: "star")   //Button image is "star"
     }
-    .sheet(isPresented: $presentingStarred) { StarredView(starredPresentingModal: self.$presentingStarred, articles: starredArticles)}  //presents StarredView
+    .sheet(isPresented: $presentingStarred) { StarredView(starredPresentingModal: self.$presentingStarred, articles: $starredArticles)}  //presents StarredView
     }
 }

@@ -39,9 +39,9 @@ struct PadArticleListView: View {
     } //Body View
 }
 
-struct PadArticleListView_Previews: PreviewProvider {
-    static var previews: some View {
-        //        ArticleListView(links: [URL(string:"google.com")!])
-        ArticleListView(articles: [Article(author: "", title: "", description: "", url: "", urlToImage: "google.com")])
-    }
-}
+//struct PadArticleListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        //        ArticleListView(links: [URL(string:"google.com")!])
+//        ArticleListView(articles: [Article(author: "", title: "", description: "", url: "", urlToImage: "google.com")])
+//    }
+//}

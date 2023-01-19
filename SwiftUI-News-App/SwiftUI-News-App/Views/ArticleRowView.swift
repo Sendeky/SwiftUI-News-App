@@ -15,7 +15,7 @@ struct ArticleRowView: View {
     @State private var lineLimit: Int = 3      //Used to expand description if needed
     @State private var showSafari: Bool = false     //Used for showing SafariWebview
     @State private var state = false    //Used for star button state
-    var article: Article
+    @Binding var article: Article
     
     var body: some View {
         VStack {
@@ -76,7 +76,7 @@ struct ArticleRowView: View {
                             //TODO: star article
                             starredArticles.append(article)
 //                            print("starredArticles: \(starredArticles)")
-                            ContentView(links: [URL(string: "google.com")!], starredArticles: starredArticles)
+//                            ContentView(links: [URL(string: "google.com")!], starredArticles: starredArticles)
                             state = true
                         } else {
                             //TODO: unstar article
@@ -114,11 +114,11 @@ struct ArticleRowView: View {
     }
 }
 
-struct ArticleRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        //        ArticleRowView(link: imageURL!)
-        ArticleRowView(article: Article(author: "An interesting author", title: "An interesting Title", description: "Description: Lorem ipsum dolor lorem ipsum dolor, this is very interesting, I just need to fill this description with a bunch of text, I should actually just copy and  paste all of thi so I don't have to write it all out", url: "google.com", urlToImage: "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD"))
-    }
-}
+//struct ArticleRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        //        ArticleRowView(link: imageURL!)
+//        ArticleRowView(article: Article(author: "An interesting author", title: "An interesting Title", description: "Description: Lorem ipsum dolor lorem ipsum dolor, this is very interesting, I just need to fill this description with a bunch of text, I should actually just copy and  paste all of thi so I don't have to write it all out", url: "google.com", urlToImage: "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD"))
+//    }
+//}
 
 
