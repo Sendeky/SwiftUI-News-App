@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct PadArticleRowView: View {
     
@@ -16,7 +17,7 @@ struct PadArticleRowView: View {
     var body: some View {
         VStack {
             //Asynchronously loads image
-            AsyncImage(url: URL(string: "\(article.urlToImage)")) { status in
+            CachedAsyncImage(url: URL(string: "\(article.urlToImage)"), urlCache: .imageCache) { status in
                 switch status {
                 case .success(let image):
                     image

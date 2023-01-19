@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SafariServices
+import CachedAsyncImage
 
 struct ArticleRowView: View {
     
@@ -20,7 +21,7 @@ struct ArticleRowView: View {
     var body: some View {
         VStack {
             //Asynchronously loads image from article (passed in by ArticleListView)
-            AsyncImage(url: URL(string: "\(article.urlToImage)")) { status in
+            CachedAsyncImage(url: URL(string: "\(article.urlToImage)"), urlCache: .imageCache) { status in
                 switch status {
                 case .success(let image):
                     image
