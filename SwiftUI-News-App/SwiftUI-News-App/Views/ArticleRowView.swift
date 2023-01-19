@@ -75,7 +75,7 @@ struct ArticleRowView: View {
                         if state != true {
                             //TODO: star article
                             starredArticles.append(article)
-                            print("starredArticles: \(starredArticles)")
+//                            print("starredArticles: \(starredArticles)")
                             ContentView(links: [URL(string: "google.com")!], starredArticles: starredArticles)
                             state = true
                         } else {

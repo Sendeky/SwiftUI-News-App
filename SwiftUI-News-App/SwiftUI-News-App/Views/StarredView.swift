@@ -15,8 +15,13 @@ struct StarredView: View {
     @State var articles: [Article]
     
     var body: some View {
-        ArticleListView(articles: articles)
-        Text(articles[0].author)
+//        ArticleRowView(article: articles)
+        List {
+            ForEach(articles, id: \.self) { article in
+                Text(article.author)
+            }
+        }
+//        ArticleListView(articles: articles)
         Button {
             ArticleListView(articles: articles)
             print("articles: \(articles)")

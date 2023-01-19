@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftyJSON
 
 enum NewsTypes: String, CaseIterable, Identifiable {
-    case technology, business
+    case technology, business, politics, science, health, cars, entertainment, california
     var id: Self { self }
 }
 
@@ -71,7 +71,7 @@ struct ContentView: View {
                 Task {
                     NewsAPICall(category: selectedCategory.rawValue)
                 }
-                print("starredArticles: \(starredArticles)")
+                print("starredArticles ContentView: \(starredArticles)")
             }
             .onChange(of: selectedCategory) { value in
                 Task {
@@ -79,6 +79,7 @@ struct ContentView: View {
                     links.removeAll()
                     NewsAPICall(category: value.rawValue)
                 }
+                print("starredArticles ContentView: \(starredArticles)")
             }
         }
     }
@@ -88,62 +89,18 @@ struct ContentView: View {
         Menu {
             Picker("Category", selection: $selectedCategory) {
                 Text("Technology").tag(NewsTypes.technology)
-                Text("Stocks").tag(NewsTypes.business)
+                Text("Business").tag(NewsTypes.business)
+                Text("Politics").tag(NewsTypes.politics)
+                Text("Science").tag(NewsTypes.science)
+                Text("Health").tag(NewsTypes.health)
+                Text("Cars").tag(NewsTypes.cars)
+                Text("Entertainment").tag(NewsTypes.entertainment)
+                Text("California").tag(NewsTypes.california)
             }
         } label: {
             Image(systemName: "text.justify")
                 .imageScale(.large)
                 .padding()
-        }
-    }
-    
-    private var settingsButton: some View {
-        Button { self.presentingSettings = true }
-    label: {
-        Image(systemName: "gear")
-    }
-    .sheet(isPresented: $presentingSettings) { SettingsView(settingsPresentedModal: self.$presentingSettings)}
-    }
-    
-    private var starredButton: some View {
-        Button { self.presentingStarred = true
-            print(starredArticles)
-        }
-    label: {
-        Image(systemName: "star")
-    }
-    .sheet(isPresented: $presentingStarred) { StarredView(starredPresentingModal: self.$presentingStarred, articles: starredArticles)}
-    }
-    
-    
-    private func NewsAPICall(category: String) {
-        //                let urlString = "https://newsapi.org/v2/everything?q=\(value.rawValue)&sortBy=popularity&apiKey=\(Constants.apiKey)"
-//        let urlString = "https://saurav.tech/NewsAPI/top-headlines/category/\(category)/in.json" //TEMP URL FOR TESTING
-        let urlString = "https://news-374821.uc.r.appspot.com/news?q=\(category)&token=\(Constants.apiKey)"
-        
-        if let url = URL(string: urlString) {
-            if let data = try? Data(contentsOf: url) {
-                let result = JSON(data)
-                
-//                let status = result["status"]
-//                print("Status: \(status)")
-                
-                for i in 0...9 {
-                    let a = result[i]
-                    print("articles: \(a)")
-                    let imageURL = a["urlToImage"]
-                    print("url:\(imageURL)")
-                    let author = a["author"]
-                    let title = a["title"]
-                    let description = a["description"]
-                    let url = a["url"]
-                    var article = Article(author: "\(author)", title: "\(title)", description: "\(description)", url: "\(url)",urlToImage: "\(imageURL)")
-                    articles.append(article)
-                    links.append(URL(string: "\(imageURL)")!)
-                }
-                articles.remove(at: 0)
-                //                        links.remove(at: 0)
-            }
         }
     }
 }
@@ -158,13 +115,3 @@ struct ContentView: View {
 //        }
 //    }
 //}
-
-extension View {
-    func presentShareSheet(url: String) {
-        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        (UIApplication.shared.connectedScenes.first as? UIWindowScene)?
-            .keyWindow?
-            .rootViewController?
-            .present(activityVC, animated: true)
-    }
-}
