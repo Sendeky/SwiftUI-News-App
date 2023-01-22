@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftUI_News_AppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(links: [URL(string: "google.com")!], starredArticles: [Article(author: "author", title: "Windowgroup", description: "", url: "", urlToImage: "")])
+            ContentView(viewModel: InfiniteListViewModel(), links: [URL(string: "google.com")!])
         }
     }
 }

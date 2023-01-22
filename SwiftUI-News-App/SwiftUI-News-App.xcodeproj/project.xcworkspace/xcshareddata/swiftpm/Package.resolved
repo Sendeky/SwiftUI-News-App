@@ -10,6 +10,24 @@
       }
     },
     {
+      "identity" : "swiftui-infinite-list",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/globulus/swiftui-infinite-list",
+      "state" : {
+        "revision" : "367bacfcd36576e19b3737112d12feb181f46f8c",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swiftui-pull-to-refresh",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/globulus/swiftui-pull-to-refresh",
+      "state" : {
+        "revision" : "1852a4eb7e7a12a768c64b25b1bd905993ced4eb",
+        "version" : "1.1.9"
+      }
+    },
+    {
       "identity" : "swiftyjson",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftyJSON/SwiftyJSON",

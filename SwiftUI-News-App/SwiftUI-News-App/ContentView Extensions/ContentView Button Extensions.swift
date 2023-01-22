@@ -21,12 +21,12 @@ extension ContentView {
     //MARK: Creates starredButton for ContentView
     var starredButton: some View {
         Button { self.presentingStarred = true
-            print("starredButton press: \(starredArticles)")
-            print("starredButton press count: \(starredArticles.count)")
+//            print("starredButton press: \(starredArticles)")
+//            print("starredButton press count: \(starredArticles.count)")
         }
     label: {
         Image(systemName: "star")   //Button image is "star"
     }
-    .sheet(isPresented: $presentingStarred) { StarredView(starredPresentingModal: self.$presentingStarred, articles: $starredArticles)}  //presents StarredView
+//    .sheet(isPresented: $presentingStarred) { StarredView(starredPresentingModal: self.$presentingStarred, articles: $starredArticles)}  //presents StarredView
     }
 }
