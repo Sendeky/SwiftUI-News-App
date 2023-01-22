@@ -30,34 +30,43 @@ struct ContentView: View {
     var body: some View {
         if UIDevice.current.userInterfaceIdiom == .pad { //iPad layout
             NavigationView {
-                /*
-                 List {
-                 NavigationLink {
-                 PadArticleListView(articles: articles)
-                 } label: {
-                 Label("\(selectedCategory.rawValue)", systemImage: "bolt.car.fill")
-                 }
-                 NavigationLink {
-                 PadArticleListView(articles: articles)
-                 } label: {
-                 Label("\(NewsTypes.business.rawValue)", systemImage: "bolt.car.fill")
-                 }
-                 }
-                 */
+                List {
+                    NavigationLink {
+                        PadArticleListView(articles: articles)
+                    } label: {
+                        Label("\(selectedCategory.rawValue)", systemImage: "bolt.car.fill")
+                    }
+                    NavigationLink {
+                        PadArticleListView(articles: articles)
+                    } label: {
+                        Label("\(NewsTypes.business.rawValue)", systemImage: "bolt.car.fill")
+                    }
+                }
+                .navigationTitle("Categories")
+//                PadArticleListView(articles: articles)
                 InfiniteList(data: $viewModel.items,
                              isLoading: $viewModel.isLoading,
                              loadingView: ProgressView(),
                              loadMore: viewModel.loadMore
                 ) { item in
                     ArticleRowView(article: item)
+                    //SwipeActions for liking and disliking articles
+                        .swipeActions(edge: .trailing) {
+                            Button { print("liked: \(item)") }
+                            label: { Image(systemName: "hand.thumbsup") }
+                            .tint(.green)
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button { print("disliked: \(item)") }
+                            label: { Image(systemName: "hand.thumbsdown") }
+                            .tint(.red)
+                        }
                 }
-                .navigationTitle("Categories")
-                PadArticleListView(articles: articles)
             }
             .listStyle(SidebarListStyle())
             .onAppear {
+                articlesArray.append(Article(author: "", title: "Hello", description: "Welcome", url: "", urlToImage: ""))
                 Task {
-                    //                    apiCall(category: selectedCategory.rawValue)
                     do {
                         let arr = try await apiCall()
                         print("\(arr)")
@@ -71,7 +80,6 @@ struct ContentView: View {
             .onChange(of: selectedCategory) { value in
                 Task {
                     articles.removeAll()
-                    links.removeAll()
                     //                    apiCall(category: selectedCategory.rawValue)
                     do {
                         let arr = try await apiCall()
@@ -89,8 +97,20 @@ struct ContentView: View {
                              isLoading: $viewModel.isLoading,
                              loadingView: ProgressView(),
                              loadMore: viewModel.loadMore
-                ) { item in
+                )
+                { item in
                     ArticleRowView(article: item)
+                    //SwipeActions for liking and disliking articles
+                        .swipeActions(edge: .trailing) {
+                            Button { print("liked: \(item)") }
+                            label: { Image(systemName: "hand.thumbsup") }
+                            .tint(.green)
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button { print("disliked: \(item)") }
+                            label: { Image(systemName: "hand.thumbsdown") }
+                            .tint(.red)
+                        }
                 }
                 .navigationTitle("\(selectedCategory.rawValue)")
                 .navigationBarItems(trailing: settingsButton)

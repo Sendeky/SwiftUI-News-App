@@ -9,6 +9,7 @@ import Foundation
 
 
 extension View {
+    
     //MARK: makes a ShareSheet that gets called on ShareButton press (in ArticleRowView)
     func presentShareSheet(url: String) {
         let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)

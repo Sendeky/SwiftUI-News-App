@@ -7,9 +7,11 @@
 
 import SwiftUI
 import CachedAsyncImage
+import SafariServices
 
 struct PadArticleRowView: View {
     
+    @State private var showSafari = false
     @State var showSheet = false
     @State private var state = false    //Used for star button state
     let article: Article
@@ -42,6 +44,7 @@ struct PadArticleRowView: View {
                     fatalError()
                 }
             }
+            .padding()
             
             //Vstack for content below image
             VStack(alignment: .leading, spacing: 10) {
@@ -88,10 +91,17 @@ struct PadArticleRowView: View {
                 } //HStack with bottom buttons and time caption
                 .padding(.vertical)
             } //VStack with Title, Description, and bottom HStack
+            .frame(maxWidth: UIScreen.main.bounds.width / 1.20)
             .padding()
         }
         .background(LinearGradient(colors: [.primary, .secondary], startPoint: .top, endPoint: .bottom).opacity(0.5))   //Uses LinearGradient because of iOS 15 compatability
         .cornerRadius(15)
+        .onTapGesture {
+            showSafari.toggle()
+        }
+        .fullScreenCover(isPresented: $showSafari, content: {
+            SFSafariViewWrapper(url: URL(string: article.url)!)
+        })
     }
 }
 

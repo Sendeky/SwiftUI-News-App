@@ -61,10 +61,8 @@ extension ContentView {
                         var article = Article(author: "\(author) + \(i)", title: "\(title)", description: "\(description)", url: "\(url)",urlToImage: "\(imageURL)")
                         array.append(article)
                     }
-                    //                        links.remove(at: 0)
                 }
             }
         return array
-    //    }
     }
 }
