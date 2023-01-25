@@ -144,12 +144,14 @@ struct ContentView: View {
                             label: { Image(systemName: "hand.thumbsdown") }
                             .tint(.red)
                         }
+                        .listRowInsets(EdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5))         //Edge insets for list, sets sides to 5
                 }
+                .frame(width: UIScreen.main.bounds.width)
                 .navigationTitle("\(selectedCategory.rawValue.capitalized)")    //NavigationView title
                 .navigationBarItems(trailing: settingsButton)                   //Adds settings button
 //                .navigationBarItems(trailing: starredButton)
                 .navigationBarItems(leading: menu)
-                .frame(width: UIScreen.main.bounds.width * 1.1)                 //Makes ArticleList larger
+                .frame(width: UIScreen.main.bounds.width * 1.0)                 //Makes ArticleList larger
             }
             .onAppear {
                 articlesArray.append(Article(author: "aaaaaa", title: "", description: "", url: "", urlToImage: "", published: "now"))

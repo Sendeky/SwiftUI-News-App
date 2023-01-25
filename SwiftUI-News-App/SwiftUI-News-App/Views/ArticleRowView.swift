@@ -53,7 +53,7 @@ struct ArticleRowView: View {
                 Text("\(article.description)")  //Description
                     .lineLimit(lineLimit)
                     .font(.subheadline)
-                    .clipped()
+//                    .clipped()
                 //Hstack for caption and buttons
                 HStack {
                     Text(article.published)
@@ -68,7 +68,6 @@ struct ArticleRowView: View {
                     }
                     .foregroundColor(.orange)
                     .buttonStyle(.bordered)
-                    
                     //Starbutton
                     Button {
                         if state != true {
@@ -91,19 +90,27 @@ struct ArticleRowView: View {
                 }//HStack with bottom buttons
                 .padding(.bottom)
             }//Vstack with Title, Descripton, and bottom HStack
-            .frame(maxWidth: UIScreen.main.bounds.width / 1.20)
+//            .frame(maxWidth: UIScreen.main.bounds.width / 1.20)
             .animation(.easeInOut(duration: 0.5), value: lineLimit) //Description expansion animation
             .onTapGesture {                                         //Expands description on tap
-                if lineLimit != 6 { lineLimit = 6 }
-                else { lineLimit = 2 }
+                withAnimation {
+                    if lineLimit != 6 { lineLimit = 6 }
+                    else { lineLimit = 2 }
+                }
             }
+            .padding(2)
+            .clipped()
         }//ArticleRowView body view
         .background(LinearGradient(colors: [.primary, .secondary], startPoint: .top, endPoint: .bottom).opacity(0.5))
         .cornerRadius(15)
+        .animation(.easeInOut(duration: 0.5), value: lineLimit)
+        .scaleEffect(showSafari ? 0.90 : 1.0)
         .onTapGesture {
             print("tapped")
             if article.url != "" {
-                showSafari.toggle()
+                withAnimation {
+                    showSafari.toggle()
+                }
             }
         }
         .fullScreenCover(isPresented: $showSafari, content: {       //Shows safari when showSafari is toggled
@@ -114,11 +121,11 @@ struct ArticleRowView: View {
     }
 }
 
-//struct ArticleRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        //        ArticleRowView(link: imageURL!)
-//        ArticleRowView(article: Article(author: "An interesting author", title: "An interesting Title", description: "Description: Lorem ipsum dolor lorem ipsum dolor, this is very interesting, I just need to fill this description with a bunch of text, I should actually just copy and  paste all of thi so I don't have to write it all out", url: "google.com", urlToImage: "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD"))
-//    }
-//}
+struct ArticleRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        //        ArticleRowView(link: imageURL!)
+        ArticleRowView(article: Article(author: "An interesting author", title: "An interesting Title", description: "Description: Lorem ipsum dolor lorem ipsum dolor, this is very interesting, I just need to fill this description with a bunch of text, I should actually just copy and  paste all of thi so I don't have to write it all out", url: "google.com", urlToImage: "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD", published: ""))
+    }
+}
 
 
