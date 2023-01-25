@@ -21,7 +21,7 @@ struct ContentView: View {
     //    let tempLink = "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD"
     
     @ObservedObject var viewModel: InfiniteListViewModel
-    @State var articles: [Article] = [Article(author: "", title: "", description: "", url: "", urlToImage: "")]
+    @State var articles: [Article] = [Article(author: "", title: "", description: "", url: "", urlToImage: "", published: "")]
     @State var links: [URL] //= [URL(string: "google.com")!]
     @State private var selectedCategory: NewsTypes = .technology
     @State var presentingSettings = false
@@ -65,7 +65,7 @@ struct ContentView: View {
             }
             .listStyle(SidebarListStyle())
             .onAppear {
-                articlesArray.append(Article(author: "", title: "Hello", description: "Welcome", url: "", urlToImage: ""))
+                articlesArray.append(Article(author: "", title: "Hello", description: "Welcome", url: "", urlToImage: "", published: "Now"))
                 Task {
                     do {
                         let arr = try await apiCall()
@@ -119,7 +119,7 @@ struct ContentView: View {
                 .frame(width: UIScreen.main.bounds.width * 1.1)
             }
             .onAppear {
-                articlesArray.append(Article(author: "aaaaaa", title: "", description: "", url: "", urlToImage: ""))
+                articlesArray.append(Article(author: "aaaaaa", title: "", description: "", url: "", urlToImage: "", published: "now"))
                 Task {
                     do {
                         let arr = try await apiCall()
@@ -166,13 +166,13 @@ struct ContentView: View {
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            ContentView(links: [URL(string: "google.com")!])
-//                .preferredColorScheme(.light)
-//            ContentView(links: [URL(string: "google.com")!])
-//                .preferredColorScheme(.dark)
-//        }
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ContentView(viewModel: InfiniteListViewModel(), links: [URL(string: "google.com")!])
+                .preferredColorScheme(.light)
+            ContentView(viewModel: InfiniteListViewModel(), links: [URL(string: "google.com")!])
+                .preferredColorScheme(.dark)
+        }
+    }
+}

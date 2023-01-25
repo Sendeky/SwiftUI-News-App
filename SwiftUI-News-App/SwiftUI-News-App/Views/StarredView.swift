@@ -11,7 +11,7 @@ struct StarredView: View {
     
     @State var previewPresent: Bool = true
     @Binding var starredPresentingModal: Bool
-    let a: [Article] = [Article(author: "author", title: "title", description: "description", url: "url.com", urlToImage: "google.com")]
+    let a: [Article] = [Article(author: "author", title: "title", description: "description", url: "url.com", urlToImage: "google.com", published: "published")]
 //    @Binding var articles: [Article]
     
     var body: some View {

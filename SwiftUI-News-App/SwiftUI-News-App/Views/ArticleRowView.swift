@@ -57,7 +57,7 @@ struct ArticleRowView: View {
                     .clipped()
                 //Hstack for caption and buttons
                 HStack {
-                    Text("Caption: Lorem ipsum dolor")
+                    Text(article.published)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Spacer()
@@ -74,9 +74,6 @@ struct ArticleRowView: View {
                     Button {
                         if state != true {
                             //TODO: star article
-//                            starredArticles.append(article)
-//                            print("starredArticles: \(starredArticles)")
-//                            ContentView(links: [URL(string: "google.com")!], starredArticles: starredArticles)
                             state = true
                         } else {
                             //TODO: unstar article

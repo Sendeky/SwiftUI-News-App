@@ -57,7 +57,7 @@ struct PadArticleRowView: View {
                 
                 //Bottom HStack with buttons and time caption
                 HStack {
-                    Text("Caption: Lorem ipsum dolor")
+                    Text(article.published)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Spacer()
@@ -105,9 +105,9 @@ struct PadArticleRowView: View {
     }
 }
 
-//struct PadArticleRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        //        ArticleRowView(link: imageURL!)
-//        ArticleRowView(article: Article(author: "", title: "", description: "", url: "", urlToImage: "google.com"))
-//    }
-//}
+struct PadArticleRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        //        ArticleRowView(link: imageURL!)
+        ArticleRowView(article: Article(author: "", title: "", description: "", url: "", urlToImage: "google.com", published: ""))
+    }
+}

@@ -53,12 +53,15 @@ extension ContentView {
                         let a = result["articles"][i]
                         print("articles: \(a)")
                         let imageURL = a["urlToImage"]
-                        print("url:\(imageURL)")
+//                        print("url:\(imageURL)")
                         let author = a["author"]
                         let title = a["title"]
                         let description = a["description"]
                         let url = a["url"]
-                        var article = Article(author: "\(author) + \(i)", title: "\(title)", description: "\(description)", url: "\(url)",urlToImage: "\(imageURL)")
+                        let published = a["publishedAt"]
+                        print("published: \(published)")
+                        let timeStamp = dateConverter(initialDate: "\(published)")
+                        var article = Article(author: "\(author) + \(i)", title: "\(title)", description: "\(description)", url: "\(url)",urlToImage: "\(imageURL)", published: "\(timeStamp)")
                         array.append(article)
                     }
                 }

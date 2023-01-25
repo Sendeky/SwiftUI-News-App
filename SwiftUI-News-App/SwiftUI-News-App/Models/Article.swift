@@ -13,6 +13,7 @@ struct Article: Codable, Hashable, Equatable {
     let description: String
     let url: String
     let urlToImage: String
+    let published: String
 }
 
 /*

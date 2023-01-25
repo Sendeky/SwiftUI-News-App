@@ -38,7 +38,14 @@ class InfiniteListViewModel: ObservableObject {
         
         isLoading = true
         arr_tmp2.publisher
-            .map {index in Article(author: "\(index.author)", title: "\(index.title)", description: "\(index.description)", url: "\(index.url)", urlToImage: "\(index.urlToImage)")
+            .map {index in Article(
+                author: "\(index.author)",
+                title: "\(index.title)",
+                description: "\(index.description)",
+                url: "\(index.url)",
+                urlToImage: "\(index.urlToImage)",
+                published: "\(index.published)"
+            )
             }
             .collect()
             .delay(for: .seconds(2), scheduler: RunLoop.main)
