@@ -11,7 +11,6 @@ import CachedAsyncImage
 
 struct ArticleRowView: View {
 
-//    @State private var starredArticles: [Article] = [Article(author: "author", title: "title", description: "desc", url: "url", urlToImage: "test.com")]
     @State private var lineLimit: Int = 3      //Used to expand description if needed
     @State private var showSafari: Bool = false     //Used for showing SafariWebview
     @State private var state = false    //Used for star button state
@@ -26,7 +25,7 @@ struct ArticleRowView: View {
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                case .empty:
+                case .empty:    //while image is empty
                     HStack {
                         Spacer()
                         ProgressView()
@@ -80,7 +79,7 @@ struct ArticleRowView: View {
                             state = false
                         }
                     } label: {
-                        //checks if star is already active =
+                        //checks if star is already active
                         if state != true {
                             Image(systemName: "star")
                         } else {
@@ -94,7 +93,7 @@ struct ArticleRowView: View {
             }//Vstack with Title, Descripton, and bottom HStack
             .frame(maxWidth: UIScreen.main.bounds.width / 1.20)
             .animation(.easeInOut(duration: 0.5), value: lineLimit) //Description expansion animation
-            .onTapGesture {
+            .onTapGesture {                                         //Expands description on tap
                 if lineLimit != 6 { lineLimit = 6 }
                 else { lineLimit = 2 }
             }
@@ -103,10 +102,14 @@ struct ArticleRowView: View {
         .cornerRadius(15)
         .onTapGesture {
             print("tapped")
-            showSafari.toggle()
+            if article.url != "" {
+                showSafari.toggle()
+            }
         }
-        .fullScreenCover(isPresented: $showSafari, content: {
-            SFSafariViewWrapper(url: URL(string: article.url)!)
+        .fullScreenCover(isPresented: $showSafari, content: {       //Shows safari when showSafari is toggled
+            if let url = article.url {                              //Unwraps article url
+                SFSafariViewWrapper(url: URL(string: url)!)         //Shows Safari with article url
+            }
         })
     }
 }

@@ -43,7 +43,6 @@ struct ContentView: View {
                     }
                 }
                 .navigationTitle("Categories")
-//                PadArticleListView(articles: articles)
                 InfiniteList(data: $viewModel.items,
                              isLoading: $viewModel.isLoading,
                              loadingView: ProgressView(),
@@ -112,11 +111,11 @@ struct ContentView: View {
                             .tint(.red)
                         }
                 }
-                .navigationTitle("\(selectedCategory.rawValue)")
-                .navigationBarItems(trailing: settingsButton)
-                .navigationBarItems(trailing: starredButton)
+                .navigationTitle("\(selectedCategory.rawValue.capitalized)")    //NavigationView title
+                .navigationBarItems(trailing: settingsButton)                   //Adds settings button
+//                .navigationBarItems(trailing: starredButton)
                 .navigationBarItems(leading: menu)
-                .frame(width: UIScreen.main.bounds.width * 1.1)
+                .frame(width: UIScreen.main.bounds.width * 1.1)                 //Makes ArticleList larger
             }
             .onAppear {
                 articlesArray.append(Article(author: "aaaaaa", title: "", description: "", url: "", urlToImage: "", published: "now"))
