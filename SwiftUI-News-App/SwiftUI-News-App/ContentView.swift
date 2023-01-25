@@ -32,14 +32,48 @@ struct ContentView: View {
             NavigationView {
                 List {
                     NavigationLink {
-                        PadArticleListView(articles: articles)
+                        InfiniteList(data: $viewModel.items,
+                                     isLoading: $viewModel.isLoading,
+                                     loadingView: ProgressView(),
+                                     loadMore: viewModel.loadMore
+                        ) { item in
+                            ArticleRowView(article: item)
+                            //SwipeActions for liking and disliking articles
+                                .swipeActions(edge: .trailing) {
+                                    Button { print("liked: \(item)") }
+                                    label: { Image(systemName: "hand.thumbsup") }
+                                    .tint(.green)
+                                }
+                                .swipeActions(edge: .leading) {
+                                    Button { print("disliked: \(item)") }
+                                    label: { Image(systemName: "hand.thumbsdown") }
+                                    .tint(.red)
+                                }
+                        }
                     } label: {
-                        Label("\(selectedCategory.rawValue)", systemImage: "bolt.car.fill")
+                        Label("\(selectedCategory.rawValue)", systemImage: "laptopcomputer")
                     }
                     NavigationLink {
-                        PadArticleListView(articles: articles)
+                        InfiniteList(data: $viewModel.items,
+                                     isLoading: $viewModel.isLoading,
+                                     loadingView: ProgressView(),
+                                     loadMore: viewModel.loadMore
+                        ) { item in
+                            ArticleRowView(article: item)
+                            //SwipeActions for liking and disliking articles
+                                .swipeActions(edge: .trailing) {
+                                    Button { print("liked: \(item)") }
+                                    label: { Image(systemName: "hand.thumbsup") }
+                                    .tint(.green)
+                                }
+                                .swipeActions(edge: .leading) {
+                                    Button { print("disliked: \(item)") }
+                                    label: { Image(systemName: "hand.thumbsdown") }
+                                    .tint(.red)
+                                }
+                        }
                     } label: {
-                        Label("\(NewsTypes.business.rawValue)", systemImage: "bolt.car.fill")
+                        Label("\(NewsTypes.business.rawValue)", systemImage: "chart.line.uptrend.xyaxis")
                     }
                 }
                 .navigationTitle("Categories")
