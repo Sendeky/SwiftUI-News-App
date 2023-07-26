@@ -20,34 +20,34 @@ struct ArticleRowView: View {
     var body: some View {
         ZStack {
             
-            CachedAsyncImage(url: URL(string: "\(article.urlToImage)"), urlCache: .imageCache) { status in
-                switch status {
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .opacity(0.7)
-                        .blur(radius: 35)
-                        .frame(height: .infinity)
-                case .empty:    //while image is empty
-                    HStack {
-                        //                        Spacer()
-                        //                        ProgressView()
-                        //                        Spacer()
-                    }
-                case .failure:  //if AsyncImage fails
-                    HStack {
-                        Spacer()
-                        Image(systemName: "photo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: UIScreen.main.bounds.width/3)
-                        Spacer()
-                    }
-                @unknown default:   //if unknown error happens
-                    fatalError()
-                }
-            }
+//            CachedAsyncImage(url: URL(string: "\(article.urlToImage)"), urlCache: .imageCache) { status in
+//                switch status {
+//                case .success(let image):
+//                    image
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .opacity(0.7)
+//                        .blur(radius: 35)
+////                        .frame(height: .infinity)
+//                case .empty:    //while image is empty
+//                    HStack {
+//                        //                        Spacer()
+//                        //                        ProgressView()
+//                        //                        Spacer()
+//                    }
+//                case .failure:  //if AsyncImage fails
+//                    HStack {
+//                        Spacer()
+//                        Image(systemName: "photo")
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                            .frame(maxWidth: UIScreen.main.bounds.width)
+//                        Spacer()
+//                    }
+//                @unknown default:   //if unknown error happens
+//                    fatalError()
+//                }
+//            }
             
             VStack {
                 //Asynchronously loads image from article (passed in by ArticleListView)
@@ -69,7 +69,7 @@ struct ArticleRowView: View {
                             Image(systemName: "photo")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(maxWidth: UIScreen.main.bounds.width/3)
+//                                .frame(maxWidth: UIScreen.main.bounds.width)
                             Spacer()
                         }
                     @unknown default:   //if unknown error happens
@@ -120,7 +120,7 @@ struct ArticleRowView: View {
                         .foregroundColor(.orange)
                         .buttonStyle(.bordered)
                     }//HStack with bottom buttons
-                    .padding(.bottom)
+//                    .padding(.bottom)
                 }//Vstack with Title, Descripton, and bottom HStack
                 //            .frame(maxWidth: UIScreen.main.bounds.width / 1.20)
                 .animation(.easeInOut(duration: 0.5), value: lineLimit) //Description expansion animation
@@ -131,7 +131,7 @@ struct ArticleRowView: View {
                     }
                 }
                 .padding(2)
-                .clipped()
+//                .clipped()
             }//ArticleRowView body view
                         .background(LinearGradient(colors: [.clear, .secondary], startPoint: .top, endPoint: .bottom).opacity(0.5))
             .cornerRadius(15)

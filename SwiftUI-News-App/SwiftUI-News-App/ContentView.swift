@@ -148,12 +148,12 @@ struct ContentView: View {
                         .listRowInsets(EdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5))         //Edge insets for list, sets sides to 5
                 }
                 .listStyle(PlainListStyle())
-                .frame(width: UIScreen.main.bounds.width)
+//                .frame(width: UIScreen.main.bounds.width)
                 .navigationTitle("\(selectedCategory.rawValue.capitalized)")    //NavigationView title
                 .navigationBarItems(trailing: settingsButton)                   //Adds settings button
 //                .navigationBarItems(trailing: starredButton)
                 .navigationBarItems(leading: menu)
-                .frame(width: UIScreen.main.bounds.width * 1.0)                 //Makes ArticleList larger
+//                .frame(width: UIScreen.main.bounds.width * 1.0)                 //Makes ArticleList larger
             }
             .onAppear {
                 articlesArray.append(Article(author: "aaaaaa", title: "", description: "", url: "", urlToImage: "", published: "now"))
@@ -215,6 +215,7 @@ struct ContentView_Previews: PreviewProvider {
                 .preferredColorScheme(.light)
             ContentView(viewModel: InfiniteListViewModel(), links: [URL(string: "google.com")!])
                 .preferredColorScheme(.dark)
+                .previewInterfaceOrientation(InterfaceOrientation.landscapeRight)
         }
     }
 }
