@@ -10,7 +10,7 @@ import SwiftyJSON
 import SwiftUIInfiniteList
 
 enum NewsTypes: String, CaseIterable, Identifiable {
-    case technology, business, politics, science, health, cars, entertainment, california
+    case technology, business, politics, science, health, cars, programming, entertainment, california
     var id: Self { self }
 }
 
@@ -21,11 +21,12 @@ struct ContentView: View {
     //    let tempLink = "https://tesla-cdn.thron.com/delivery/public/image/tesla/256d1141-44e7-4bd3-8fdc-20852283c645/bvlatuR/std/4096x3072/Model-X-Specs-Hero-Desktop-LHD"
     
     @ObservedObject var viewModel: InfiniteListViewModel
-    @State var articles: [Article] = [Article(author: "", title: "", description: "", url: "", urlToImage: "", published: "")]
+    //@State var articles: [Article] = [Article(author: "", title: "", description: "", url: "", urlToImage: "", published: "")]
     @State var links: [URL] //= [URL(string: "google.com")!]
     @State private var selectedCategory: NewsTypes = .technology
     @State var presentingSettings = false
     @State var presentingStarred = false
+    @State var categoriesArray = ["Technology"]
     
     var body: some View {
         if UIDevice.current.userInterfaceIdiom == .pad { //iPad layout
@@ -96,12 +97,12 @@ struct ContentView: View {
                         }
                 }
             }
-            .listStyle(SidebarListStyle())
+            .listStyle(PlainListStyle())
             .onAppear {
                 articlesArray.append(Article(author: "", title: "Hello", description: "Welcome", url: "", urlToImage: "", published: "Now"))
                 Task {
                     do {
-                        let arr = try await apiCall()
+                        let arr = try await apiCall(category: selectedCategory.rawValue)
                         print("\(arr)")
                         articlesArray.append(contentsOf: arr)
                     }
@@ -112,10 +113,10 @@ struct ContentView: View {
             }
             .onChange(of: selectedCategory) { value in
                 Task {
-                    articles.removeAll()
+                    articlesArray.removeAll()
                     //                    apiCall(category: selectedCategory.rawValue)
                     do {
-                        let arr = try await apiCall()
+                        let arr = try await apiCall(category: selectedCategory.rawValue)
                         print("\(arr)")
                         articlesArray.append(contentsOf: arr)
                     }
@@ -146,6 +147,7 @@ struct ContentView: View {
                         }
                         .listRowInsets(EdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5))         //Edge insets for list, sets sides to 5
                 }
+                .listStyle(PlainListStyle())
                 .frame(width: UIScreen.main.bounds.width)
                 .navigationTitle("\(selectedCategory.rawValue.capitalized)")    //NavigationView title
                 .navigationBarItems(trailing: settingsButton)                   //Adds settings button
@@ -157,7 +159,7 @@ struct ContentView: View {
                 articlesArray.append(Article(author: "aaaaaa", title: "", description: "", url: "", urlToImage: "", published: "now"))
                 Task {
                     do {
-                        let arr = try await apiCall()
+                        let arr = try await apiCall(category: selectedCategory.rawValue)
                         articlesArray.append(contentsOf: arr)
                     }
                     catch {
@@ -166,11 +168,15 @@ struct ContentView: View {
                 }
             }
             .onChange(of: selectedCategory) { value in
+                articlesArray.removeAll()
+                articlesArray.append(Article(author: "aaaaaa", title: "", description: "", url: "", urlToImage: "", published: "now"))
                 Task {
-                    articlesArray.removeAll()
                     do {
-                        let arr = try await apiCall()
+                        let arr = try await apiCall(category: selectedCategory.rawValue)
                         articlesArray.append(contentsOf: arr)
+                        //print("articlesArray \(articlesArray)")
+                        self.viewModel.resetItems()
+                        self.viewModel.loadMore()
                     }
                     catch {
                         print(error.localizedDescription)
@@ -184,12 +190,13 @@ struct ContentView: View {
     private var menu: some View {
         Menu {
             Picker("Category", selection: $selectedCategory) {
-                Text("Technology").tag(NewsTypes.technology)
+                Text("\(categoriesArray[0])").tag(NewsTypes.technology)
                 Text("Business").tag(NewsTypes.business)
                 Text("Politics").tag(NewsTypes.politics)
                 Text("Science").tag(NewsTypes.science)
                 Text("Health").tag(NewsTypes.health)
                 Text("Cars").tag(NewsTypes.cars)
+                Text("Programming").tag(NewsTypes.programming)
                 Text("Entertainment").tag(NewsTypes.entertainment)
                 Text("California").tag(NewsTypes.california)
             }

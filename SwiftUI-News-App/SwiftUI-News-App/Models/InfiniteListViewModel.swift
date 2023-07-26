@@ -15,6 +15,12 @@ class InfiniteListViewModel: ObservableObject {
 //    private var page = 1
     private var subscriptions = Set<AnyCancellable>()
     
+    func resetItems() {
+        self.items.removeAll()
+        self.lastIndex = 0
+        self.isLoading = false
+    }
+    
     func loadMore() {
         guard !isLoading else { return }
         if lastIndex >= articlesArray.count { return }

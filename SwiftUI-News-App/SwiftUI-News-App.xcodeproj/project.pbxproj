@@ -36,6 +36,7 @@
 		C017D5E82978D65400B192AC /* ContentView Button Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView Button Extensions.swift"; sourceTree = "<group>"; };
 		C017D5EE2978D79B00B192AC /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		C017D5F32979085D00B192AC /* URLCache+imageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLCache+imageCache.swift"; sourceTree = "<group>"; };
+		C05CAE4B2991EB4D0078EFB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C05D9AC32974F13F009DC39A /* PadArticleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PadArticleListView.swift; sourceTree = "<group>"; };
 		C05D9AC6297530FD009DC39A /* SafariWebview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebview.swift; sourceTree = "<group>"; };
 		C08A5A452970BEEB00522927 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -131,6 +132,7 @@
 		C0BB833D296DD2DB00C9A1F3 /* SwiftUI-News-App */ = {
 			isa = PBXGroup;
 			children = (
+				C05CAE4B2991EB4D0078EFB7 /* Info.plist */,
 				C0F78CDB2980B585001A3ACF /* DateConverter */,
 				C017D5E42978D4EB00B192AC /* API */,
 				C017D5ED2978D78400B192AC /* Extensions */,
@@ -418,6 +420,7 @@
 				DEVELOPMENT_TEAM = PT5J4Z6J5K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SwiftUI-News-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,7 +431,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.03;
+				MARKETING_VERSION = 1.08;
 				PRODUCT_BUNDLE_IDENTIFIER = "ES.SwiftUI-News-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -448,6 +451,7 @@
 				DEVELOPMENT_TEAM = PT5J4Z6J5K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SwiftUI-News-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -458,7 +462,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.03;
+				MARKETING_VERSION = 1.08;
 				PRODUCT_BUNDLE_IDENTIFIER = "ES.SwiftUI-News-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
